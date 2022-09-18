@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/dodorian")
-public class DodorianStockController {
+public class DodorianController {
 
     @RequestMapping("/stock")
     public void dodorianTest() {
-        
+
     }
 }
