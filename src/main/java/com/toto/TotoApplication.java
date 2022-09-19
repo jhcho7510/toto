@@ -1,4 +1,4 @@
-package com.example.toto;
+package com.toto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

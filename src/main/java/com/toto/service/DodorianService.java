@@ -1,4 +1,4 @@
-package com.example.toto.service;
+package com.toto.service;
 
 import org.springframework.stereotype.Service;
 

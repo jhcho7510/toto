@@ -1,4 +1,4 @@
-package com.example.toto;
+package com.toto;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
