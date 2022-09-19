@@ -1,4 +1,4 @@
-package com.toto.service;
+package com.toto.coordinator.controller.service;
 
 import org.springframework.stereotype.Service;
 
