@@ -12,8 +12,6 @@ import java.io.Serializable;
  */
 @Builder
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class NaverVo implements Serializable {
 
     /** FnGuide crawling Header 정보 */
