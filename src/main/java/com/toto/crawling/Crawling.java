@@ -9,9 +9,15 @@ import java.io.IOException;
 
 @Component
 public class Crawling {
-    public Document getCrawlingDocument(String crawlingUri) throws IOException {
+    public Document getCrawlingDocument(String crawlingUri) {
         Connection connect = Jsoup.connect(crawlingUri);
-        return connect.get();
+        Document document = null;
+        try {
+            document = connect.get();
+        } catch (IOException ioEx) {
+
+        }
+        return document;
 
     }
 }
