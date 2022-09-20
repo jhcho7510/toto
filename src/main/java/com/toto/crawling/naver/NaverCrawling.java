@@ -32,16 +32,18 @@ public class NaverCrawling implements CrawlingInterface {
     }
 
     public String getStockHeader(Document document) {
+        StringBuilder sbf = new StringBuilder();
+        /*
         Elements stockTableBody = document.select("table.type_2 thead tr");
-        StringBuilder sb = new StringBuilder();
         for (Element element : stockTableBody) {
             for (Element td : element.select("th")) {
                 sb.append(td.text());
                 sb.append("   ");
             }
             break;
-        }
-        return sb.toString();
+        }*/
+        String[] targetNodes = {"table.type_2 thead tr", "th"};
+        return sbf.append(crawling.getParsingData(document, targetNodes)).toString();
     }
 
     public String getStockList(Document document) {

@@ -1,1 +1,13 @@
-
+server:
+  port: 8080
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+    include-exception: false
+    include-stacktrace: never
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
