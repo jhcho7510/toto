@@ -2,12 +2,14 @@ package com.toto.crawling.naver;
 
 import com.toto.crawling.Crawling;
 import com.toto.crawling.CrawlingInterface;
+import com.toto.crawling.CrawlingDto;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -25,11 +27,30 @@ public class NaverCrawling implements CrawlingInterface {
 
         String thead = getStockHeader(crawlingDocument);
         System.out.println(thead);
-        String tbody = getStockList(crawlingDocument);
+
+        // String tbody = getStockList(crawlingDocument);
+        String tbody = crawling.getCrawlingDataParsing(dummyDataSetting());
         System.out.println(tbody);
 
         return null;
     }
+
+    public String getNaverFinanceDataList(CrawlingDto paramDto) {
+        String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
+        Document crawlingDocument = connectCrawling(stockList);
+        String thead = getStockHeader(crawlingDocument);
+        System.out.println(thead);
+
+        String tbody = crawling.getCrawlingDataParsing(paramDto);
+        System.out.println(tbody);
+
+        StringBuilder sbf = new StringBuilder();
+        sbf.append(thead);
+        sbf.append(System.getProperty("line.separator"));
+        sbf.append(tbody);
+        return sbf.toString();
+    }
+
 
     public String getStockHeader(Document document) {
         StringBuilder sbf = new StringBuilder();
@@ -68,6 +89,34 @@ public class NaverCrawling implements CrawlingInterface {
         }
         return sb.toString();
     }
+
+
+    public CrawlingDto dummyDataSetting() {
+        /** step .1 : entrynode */
+        CrawlingDto.EntryNode entryNode = CrawlingDto.EntryNode.builder()
+                .tag(".center a")
+                .attribute("href")
+                .build();
+
+        /** step .2 : elementNode */
+        CrawlingDto.ElementNode elementNode = CrawlingDto.ElementNode.builder()
+                .cTag("td")
+                .cAttribute("")
+                .entryNode(entryNode)
+                .build();
+
+        /** step .3 : elements Node */
+        CrawlingDto crawlingVo = CrawlingDto.builder()
+                .crawlingUri("https://finance.naver.com/sise/sise_market_sum.nhn?&page=1")
+                .pTag("table.type_2 tbody tr")
+                .pAttribute("onmouseover")
+                .elementNode(elementNode)
+                .build();
+
+        return crawlingVo;
+    }
+
+
 
     @Override
     public Document connectCrawling(String crawlingUri) {

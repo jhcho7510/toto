@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 /**
@@ -30,28 +31,56 @@ public class Crawling {
         return document;
     }
 
-    public String getParsingData(Document document,String... targetNodes) {
+    public String getParsingData(Document document, String... nodes) {
         StringBuilder sbf = new StringBuilder();
 
-        Elements parentElement = document.select(targetNodes[0]);
-
+        Elements parentElement = document.select(nodes[0]);
         for(Element childElement :parentElement) {
-
-            for(Element targetElement :parentElement.select(targetNodes[1])) {
+            for(Element targetElement :parentElement.select(nodes[1])) {
                 String text = "";
-
-                if (targetNodes.length > 2) {
-
-                } else {
-                    text = targetElement.text();
-
-                }
-
+                text = targetElement.text();
                 sbf.append(text).append("|");
             }
             sbf.append(System.getProperty("line.separator"));
         }
+        return sbf.toString();
+
+    }
+
+    public String getCrawlingDataParsing(CrawlingDto crawlingVo) {
+        StringBuilder sbf = new StringBuilder();
+
+        String pTag = crawlingVo.getPTag();
+        String pAttribute = crawlingVo.getPAttribute();
+
+
+        Document document = getCrawlingDocument(crawlingVo.getCrawlingUri());
+        Elements elements = document.select(pTag);
+
+        int idx = 0;
+        for(Element pElement :elements) {
+            if(pElement.attr(pAttribute).isEmpty()) continue;
+
+            CrawlingDto.ElementNode elementNodeVo = crawlingVo.getElementNode();
+
+            for(Element cElement :pElement.select(elementNodeVo.getCTag())) {
+                CrawlingDto.EntryNode entryNode =  elementNodeVo.getEntryNode();
+                String txt = "";
+                if(cElement.select(entryNode.getTag()).isEmpty()) {
+                    txt = cElement.text();
+                }
+                else {
+                    txt = cElement.select(entryNode.getTag()).attr(entryNode.getAttribute());
+                }
+                sbf.append(txt).append(" ");
+            }
+            sbf.append(System.getProperty("line.separator"));
+
+        }
+
+
 
         return sbf.toString();
     }
+
 }
