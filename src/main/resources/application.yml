@@ -1,13 +1,57 @@
-server:
-  port: 8080
-  error:
-    path: /error
-    whitelabel:
-      enabled: false
-    include-exception: false
-    include-stacktrace: never
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
+spring:
+  profiles:
+    group:"local":"local"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+logging:
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss}][%-5level][%t][%F][%t][%logger.%method:line%line] - %msg%n"
+  level:
+    root: debug
+
+--- # dev
+spring:
+  config:
+    activate:
+      on-profile: dev
+logging:
+  pattern:
+    file: "[%d{yyyy-MM-dd HH:mm:ss}][%-5level][%t][%F][%t][%logger.%method:line%line] - %msg%n"
+    rolling-file-name: "/logs/toto.%d{yyyy-MM-dd HH:mm:ss}.%i"
+  file:
+    name: /logs/toto.log
+    max-history: 30
+  level:
+    root: info
+
+--- # prod
+spring:
+  config:
+    activate:
+      on-profile: prod
+logging:
+  level:
+    root: error
+
+
+
+
+
+
+
+
+
+#[ 로깅 패턴 ]
+#%-5level : 로그 레벨, -5는 출력의 고정폭 값(5글자) (INFO, ERROR, DEBUG , 기타 등등이다.)
+#%d{날짜 형식 포맷} : 로그 기록시간 %d{yyyy-MM-dd HH:mm:ss} 을 사용하면 된다.
+#%thread : 현재 Thread 명
+#%F : 로깅을 발생시킨 파일 명
+#%M : 로깅을 발생시킨 메소드 명
+#%logger{length} : Logger name을 축약할 수 있다. length는 최대 자릿수이다 (0 = 무제한)
+#%line : 로깅이 발생된 라인 넘버%msg : - 로그 메시지
+#%n : 줄바꿈(new line)
+#이 외에도 여러 가지가 있다. ( http://logback.qos.ch/manual/layouts.html )

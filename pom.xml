@@ -45,6 +45,24 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.14.2</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+
+		<!-- springboot에는 logback이 포함되어 있어, 의존성을 기술하면 안됨(충돌남) 2022.09.26 jhcho -->
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

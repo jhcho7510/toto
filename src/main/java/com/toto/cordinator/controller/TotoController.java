@@ -1,5 +1,6 @@
-package com.toto.coordinator.controller;
+package com.toto.cordinator.controller;
 
+import com.toto.common.exception.TotoException;
 import com.toto.crawling.CrawlingDto;
 import com.toto.crawling.naver.NaverCrawling;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,16 @@ public class TotoController {
 		}
 		}
 */
+	}
+
+	@GetMapping("/toto-exception")
+	public String exceptionTest() throws Exception {
+		throw new TotoException("invoke Toto Exception");
+	}
+
+	@GetMapping("/toto-exception-2")
+	public String exceptionTest2() throws Exception {
+		throw new ArithmeticException("숫자유형이 부적합합니다.");
 	}
 
 
