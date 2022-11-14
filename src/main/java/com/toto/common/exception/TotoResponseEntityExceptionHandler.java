@@ -62,6 +62,8 @@ public class TotoResponseEntityExceptionHandler extends ResponseEntityExceptionH
 //    }
     
     // @ResponseStatus(HttpStatus.BAD_REQUEST)
+    // 메서드명 및 파라미터는 handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) 로 사용해야하고,
+    // @Override 어노테이션을 추가해야한다.  
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
     	List<TotoError> validList = new ArrayList<TotoError>();
