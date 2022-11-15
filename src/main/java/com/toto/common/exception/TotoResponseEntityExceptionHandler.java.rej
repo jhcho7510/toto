@@ -1,0 +1,11 @@
+diff a/src/main/java/com/toto/common/exception/TotoResponseEntityExceptionHandler.java b/src/main/java/com/toto/common/exception/TotoResponseEntityExceptionHandler.java	(rejected hunks)
+@@ -69,7 +69,8 @@
+     // @Override 어노테이션을 추가해야한다.  
+     @Override
+     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+-    	List<TotoError> validList = new ArrayList<TotoError>();
++/**
++        List<TotoError> validList = new ArrayList<TotoError>();
+     	System.out.println(" Get in handleValidationExceptions !! ");
+     	ex.getBindingResult().getAllErrors().forEach((error) -> {
+             String fieldName = ((FieldError) error).getField();

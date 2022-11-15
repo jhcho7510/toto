@@ -1,13 +1,18 @@
 package com.toto.cordinator.controller;
 
+import com.toto.biz.dto.TotoBizDto;
 import com.toto.common.exception.TotoException;
 import com.toto.crawling.CrawlingDto;
 import com.toto.crawling.naver.NaverCrawling;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 public class TotoController {
@@ -53,7 +58,10 @@ public class TotoController {
 		throw new ArithmeticException("숫자유형이 부적합합니다.");
 	}
 
-
+	@PostMapping("/validation")
+	public TotoBizDto valid(@Valid @RequestBody TotoBizDto paramDto) {
+		return paramDto;
+	}
 
 }
  
