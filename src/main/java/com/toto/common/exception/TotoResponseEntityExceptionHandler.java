@@ -44,48 +44,14 @@ public class TotoResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
     
-//    @Override
-//    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-//                                                                  HttpHeaders headers,
-//                                                                  HttpStatus status, WebRequest request) {
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("timestamp", new Date());
-//        body.put("status", status.value());
-//
-//        //Get all errors
-//        List<String> errors = ex.getBindingResult()
-//                .getFieldErrors()
-//                .stream()
-//                .map(x -> x.getDefaultMessage())
-//                .collect(Collectors.toList());
-//
-//        body.put("errors", errors);
-//
-//        return new ResponseEntity<>(body, headers, status);
-//    }
-    
     // @ResponseStatus(HttpStatus.BAD_REQUEST)
     // 메서드명 및 파라미터는 handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) 로 사용해야하고,
     // @Override 어노테이션을 추가해야한다.  
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-/**
-        List<TotoError> validList = new ArrayList<TotoError>();
-    	System.out.println(" Get in handleValidationExceptions !! ");
-    	ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            TotoError errors = new TotoError();
-            errors.setFieldName(fieldName);
-            errors.setErrorMessage(errorMessage);
-            validList.add(errors);
-        });
-*/
         List<TotoError> validList = ex.getBindingResult().getAllErrors().stream()
                 .map(error -> setTotoError(error))
                 .collect(Collectors.toList());
-
-
         return new ResponseEntity<>(validList, HttpStatus.NOT_FOUND);
     }
 
@@ -98,3 +64,38 @@ public class TotoResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
 }
+
+
+
+//@Override
+//protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+//                                                            HttpHeaders headers,
+//                                                            HttpStatus status, WebRequest request) {
+//  Map<String, Object> body = new LinkedHashMap<>();
+//  body.put("timestamp", new Date());
+//  body.put("status", status.value());
+//
+//  //Get all errors
+//  List<String> errors = ex.getBindingResult()
+//          .getFieldErrors()
+//          .stream()
+//          .map(x -> x.getDefaultMessage())
+//          .collect(Collectors.toList());
+//
+//  body.put("errors", errors);
+//
+//  return new ResponseEntity<>(body, headers, status);
+//}
+
+/**
+List<TotoError> validList = new ArrayList<TotoError>();
+System.out.println(" Get in handleValidationExceptions !! ");
+ex.getBindingResult().getAllErrors().forEach((error) -> {
+    String fieldName = ((FieldError) error).getField();
+    String errorMessage = error.getDefaultMessage();
+    TotoError errors = new TotoError();
+    errors.setFieldName(fieldName);
+    errors.setErrorMessage(errorMessage);
+    validList.add(errors);
+});
+*/
