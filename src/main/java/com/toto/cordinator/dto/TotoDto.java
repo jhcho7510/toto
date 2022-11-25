@@ -17,4 +17,5 @@ public class TotoDto {
 	@NotBlank(message = "EMAIL은 필수 입력 입니다.") private String email;
 	
 	
+	
 }

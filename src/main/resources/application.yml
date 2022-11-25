@@ -1,6 +1,11 @@
 spring:
   profiles:
     group:"local":"local"
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
 
 ---
 spring:
@@ -38,7 +43,7 @@ logging:
     root: error
 
 
-
+# jpa설정 : https://kim-oriental.tistory.com/20
 
 
 
