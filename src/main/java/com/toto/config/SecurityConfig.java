@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()//csrf토큰 비활성화(테스트시 걸어두는게 좋음) 시큐리티는 csrf토큰이 있어야 접근가능함
                 .authorizeRequests() //인가 요청이 오면
-                .antMatchers("/","/auth/**","/js/**","/css/**","/image/**") //해당 경로들은
+                .antMatchers("/","/auth/**","/js/**","/css/**","/image/**", "/toto/**") //해당 경로들은
                 .permitAll() //접근을 허용한다.
                 .anyRequest() //다른 모든 요청은
                 .authenticated() //인증이 되야 들어갈 수 있다.

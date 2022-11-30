@@ -1,5 +1,6 @@
 package com.toto.cordinator.controller;
 
+import com.sun.istack.NotNull;
 import com.toto.biz.dto.TotoBizDto;
 import com.toto.common.exception.TotoException;
 import com.toto.cordinator.dto.TotoDto;
@@ -8,23 +9,29 @@ import com.toto.crawling.naver.NaverCrawling;
 
 import javax.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/toto")
 public class TotoController {
 
-	@Autowired
-	private NaverCrawling naverCrawling;
+	// @Autowired
+	// private NaverCrawling naverCrawling;
+
+	//@NotNull
+	//private NaverCrawling  naverCrawling;
+
+	private final NaverCrawling naverCrawling;
 
 	@PostMapping("/valid")
 	public ResponseEntity<String> addToto(@Valid @RequestBody TotoDto dto) {
