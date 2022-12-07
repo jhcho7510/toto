@@ -38,19 +38,35 @@ public class NaverCrawling implements CrawlingInterface {
     public String getNaverFinanceDataList(CrawlingDto paramDto) {
         String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
         Document crawlingDocument = connectCrawling(stockList);
-        String thead = getStockHeader(crawlingDocument);
+        String thead = getStockHeaderOrigin(crawlingDocument);
         System.out.println(thead);
 
-        String tbody = crawling.getCrawlingDataParsing(paramDto);
+        // String tbody = crawling.getCrawlingDataParsing(paramDto);
+        String tbody = getStockList(crawlingDocument);
         System.out.println(tbody);
 
-        StringBuilder sbf = new StringBuilder();
+/*        StringBuilder sbf = new StringBuilder();
         sbf.append(thead);
         sbf.append(System.getProperty("line.separator"));
         sbf.append(tbody);
-        return sbf.toString();
+ */
+        return tbody;
     }
 
+
+    /** Naver getStockHeader Origin */
+    public static String getStockHeaderOrigin(Document document) {
+        Elements stockTableBody = document.select("table.type_2 thead tr");
+        StringBuilder sb = new StringBuilder();
+        for (Element element : stockTableBody) {
+            for (Element td : element.select("th")) {
+                sb.append(td.text());
+                sb.append("   ");
+            }
+            break;
+        }
+        return sb.toString();
+    }
 
     public String getStockHeader(Document document) {
         StringBuilder sbf = new StringBuilder();

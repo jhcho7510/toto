@@ -10,6 +10,7 @@ import com.toto.crawling.naver.NaverCrawling;
 import javax.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/toto")
 public class TotoController {
 
@@ -43,7 +45,11 @@ public class TotoController {
 		System.out.println("11111111111111111----");
 		return ResponseEntity.ok("None");
 	}
-	
+
+	/**
+	 * Naver Crawling 소스를 변경하였음.
+	 * @return
+	 */
 	@GetMapping("/toto")
 	public String toto() {
 		naverCrawling.initCrawlingDataList();
@@ -52,22 +58,23 @@ public class TotoController {
 
 	@PostMapping("/naver")
 	public String getNaverFinanceList(@RequestBody CrawlingDto paramDto) {
+		log.info("naver paramDto : ",paramDto);
 		String rtn = naverCrawling.getNaverFinanceDataList(paramDto);
 		return rtn;
 
 /**
 		{
 			"crawlingUri" : "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1",
-				"pTag" : "table.type_2 tbody tr",
-				"pAttribute" : "onmouseover",
-				"elementNode": {
-			"cTag":"td",
-					"cAttribute":"",
-					"entryNode": {
-				"tag":".center a",
-						"attribute":"href"
+			"pTag" : "table.type_2 tbody tr",
+			"pAttribute" : "onmouseover",
+			"elementNode": {
+				"cTag":"td",
+				"cAttribute":"",
+				"entryNode": {
+					"tag":".center a",
+					"attribute":"href"
+				}
 			}
-		}
 		}
 */
 	}

@@ -35,14 +35,12 @@ public class Crawling {
         StringBuilder sbf = new StringBuilder();
 
         Elements parentElement = document.select(nodes[0]);
-        for(Element childElement :parentElement) {
-            for(Element targetElement :parentElement.select(nodes[1])) {
-                String text = "";
-                text = targetElement.text();
-                sbf.append(text).append("|");
-            }
-            sbf.append(System.getProperty("line.separator"));
+        for(Element targetElement :parentElement.select(nodes[1])) {
+            String text = "";
+            text = targetElement.text();
+            sbf.append(text).append("|");
         }
+        sbf.append(System.getProperty("line.separator"));
         return sbf.toString();
 
     }
@@ -52,7 +50,6 @@ public class Crawling {
 
         String pTag = crawlingVo.getPTag();
         String pAttribute = crawlingVo.getPAttribute();
-
 
         Document document = getCrawlingDocument(crawlingVo.getCrawlingUri());
         Elements elements = document.select(pTag);
