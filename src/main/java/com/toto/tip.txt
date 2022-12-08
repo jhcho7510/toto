@@ -1,0 +1,5 @@
+
+Spring AOP 적용시 HttpServletRequest 객체를 사용하려면 아래처럼 코드를 작성해야한다.
+javax.servlet.http.HttpServletRequest;
+HttpServletRequest request =
+    ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
