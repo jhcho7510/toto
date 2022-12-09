@@ -2,6 +2,7 @@
 package com.toto.config;
 
 import com.toto.config.auth.PrincipalDetailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,14 +14,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity // Security Filter 등록
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근을 하면 권한 및 인증을 미리 체크
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    public final PrincipalDetailService principalDetailService;
+    /*
     private PrincipalDetailService principalDetailService;
 
     @Autowired
     public SecurityConfig(PrincipalDetailService principalDetailService) {
         this.principalDetailService = principalDetailService;
     }
-
+*/
     @Bean
     public BCryptPasswordEncoder encodePWD() { //비밀번호 암호화를 위해 사용 시큐리티는 비밀번호가 암호화 되있어야 사용가능하다
         return new BCryptPasswordEncoder();
